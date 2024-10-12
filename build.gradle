@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.4'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'jacoco'
 }
 
 group = 'org.demo'
@@ -10,6 +11,22 @@ version = '0.0.1-SNAPSHOT'
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+test {
+    finalizedBy jacocoTestReport // report automatically generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // Asegúrate de que el informe dependa de la tarea de prueba
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
@@ -33,7 +50,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     // H2
     runtimeOnly 'com.h2database:h2'
-    // Openapi swagger
+    // OpenAPI swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
     // Envers
     implementation 'org.hibernate.orm:hibernate-envers:6.4.4.Final'

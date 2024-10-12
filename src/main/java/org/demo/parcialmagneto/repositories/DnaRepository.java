@@ -10,4 +10,5 @@ public interface DnaRepository extends JpaRepository<Dna, Long> {
     Optional<Dna> findByDna(String dnaSequence);
 
     long countByIsMutant(boolean isMutant);
+    long count();
 }

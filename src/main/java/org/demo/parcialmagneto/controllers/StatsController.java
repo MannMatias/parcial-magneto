@@ -2,6 +2,7 @@ package org.demo.parcialmagneto.controllers;
 
 import org.demo.parcialmagneto.dto.StatsResponse;
 import org.demo.parcialmagneto.services.StatsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ public class StatsController {
 
     private final StatsService statsService;
 
+    @Autowired
     public StatsController(StatsService statsService) {
         this.statsService = statsService;
     }

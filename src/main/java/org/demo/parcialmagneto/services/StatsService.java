@@ -19,6 +19,7 @@ public class StatsService {
         long countMutantDna = dnaRepository.countByIsMutant(true);
         long countHumanDna = dnaRepository.countByIsMutant(false);
         double ratio = countHumanDna == 0 ? 0 : (double) countMutantDna / countHumanDna;
+
         return new StatsResponse(countMutantDna, countHumanDna, ratio);
     }
 }

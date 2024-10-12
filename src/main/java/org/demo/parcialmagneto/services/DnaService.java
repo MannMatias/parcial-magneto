@@ -1,5 +1,6 @@
 package org.demo.parcialmagneto.services;
 
+import org.demo.parcialmagneto.dto.StatsResponse;
 import org.demo.parcialmagneto.entities.Dna;
 import org.demo.parcialmagneto.repositories.DnaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,5 +153,12 @@ public class DnaService {
         dnaRepository.save(dnaEntity);
 
         return isMutant;
+    }
+    public StatsResponse getStats() {
+        long countMutantDna = dnaRepository.countByIsMutant(true);
+        long countHumanDna = dnaRepository.countByIsMutant(false);
+        double ratio = countHumanDna == 0 ? 0 : (double) countMutantDna / countHumanDna;
+
+        return new StatsResponse(countMutantDna, countHumanDna, ratio);
     }
 }

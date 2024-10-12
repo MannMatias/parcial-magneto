@@ -16,5 +16,6 @@ public class StatsResponse {
     @JsonProperty("count_human_dna")
     private long countHumanDna;
 
+    @JsonProperty("ratio")
     private double ratio;
 }

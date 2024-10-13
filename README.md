@@ -52,7 +52,7 @@
    - La API está diseñada para manejar fluctuaciones agresivas de tráfico, con un rango estimado de entre 100 y 1 millón de peticiones por segundo.
 
 5. **Pruebas Automáticas**:
-   - Se deben implementar pruebas automáticas con una cobertura de código superior al **80%**.
+   - Se implementaron pruebas automáticas con una cobertura de código superior al **80%**.
 
 ---
 

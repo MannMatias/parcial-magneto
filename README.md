@@ -5,7 +5,7 @@
 
 2. **Hostear la API**:
    - La API se encuentra hospedada en Render, un servicio de cloud computing gratuito.
-   - [Deploy en Render](https://parcial-magneto-9xi7.onrender.com/swaggerui/index.html)
+   - [Deploy en Render](https://parcial-magneto-9xi7.onrender.com/swagger-ui/index.html)
 
 
 3. **Endpoint del Servicio**:

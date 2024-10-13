@@ -84,6 +84,11 @@ Ejemplo de matriz **NO MUTANTE**:
     ]
 }
 
+```
+
+## Pruebas Unitarias
+
+Se incluyen casos de pruebas contemplando todos los patrones posibles (en filas, columnas y diagonales).
 # Instrucciones para Ejecutar el Programa/API
 
 ## Nivel 2: API REST para Detección de Mutantes
@@ -152,8 +157,3 @@ Ejemplo de matriz **NO MUTANTE**:
 - **Resultados de JaCoCo**:
   - (Agregar aquí los resultados de las pruebas automáticas y la cobertura de código con JaCoCo)
 
-```
-
-## Pruebas Unitarias
-
-Se incluyen casos de pruebas contemplando todos los patrones posibles (en filas, columnas y diagonales).

@@ -9,7 +9,7 @@
 3. **Endpoint del Servicio**:
    - El servicio para verificar si un humano es mutante se puede acceder en el siguiente endpoint:
      ```
-     POST /mutant/
+     POST http://localhost:8080/mutant
      ```
 
 4. **Formato de la Solicitud**:
@@ -35,16 +35,16 @@
 2. **Endpoint de Estadísticas**:
    - Un servicio adicional para exponer estadísticas de verificaciones de ADN:
      ```
-     GET /stats
+     GET http://localhost:8080/stats
      ```
 
 3. **Formato de Respuesta de Estadísticas**:
    - La respuesta devuelve un JSON con el siguiente formato:
      ```json
      {
-       "count_mutant_dna": 40,
-       "count_human_dna": 100,
-       "ratio": 0.4
+       "count_mutant_dna": 4,
+       "count_human_dna": 1,
+       "ratio": 4
      }
      ```
 

@@ -5,6 +5,8 @@
 
 2. **Hostear la API**:
    - La API se encuentra hospedada en Render, un servicio de cloud computing gratuito.
+   - [Deploy en Render](https://parcial-magneto-9xi7.onrender.com/swaggerui/index.html)
+
 
 3. **Endpoint del Servicio**:
    - El servicio para verificar si un humano es mutante se puede acceder en el siguiente endpoint:

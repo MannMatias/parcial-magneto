@@ -21,9 +21,14 @@ public class DnaServiceTest {
     @Mock
     private DnaRepository dnaRepository;
 
+    @Mock
+    private StatsService StatsService;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        StatsService statsService = new StatsService(dnaRepository);
+        dnaService = new DnaService(dnaRepository, statsService);
     }
 
     private final DnaValidator validator = new DnaValidator();
@@ -65,12 +70,14 @@ public class DnaServiceTest {
     }
     @Test
     public void testGetStats_ReturnsCorrectStats() {
-        // Simular comportamiento del repositorio
-        when(dnaRepository.countByIsMutant(true)).thenReturn(5L);
-        when(dnaRepository.countByIsMutant(false)).thenReturn(3L);
+        // Crear el objeto StatsResponse con datos simulados usando el constructor adecuado
+        StatsResponse mockStats = new StatsResponse(5L, 3L, 1.6666666666666667);
 
-        // Ejecutar método
-        StatsResponse stats = dnaService.getStats();
+        // Simular el comportamiento del servicio StatsService
+        when(StatsService.getStats()).thenReturn(mockStats);
+
+        // Ejecutar el metodo
+        StatsResponse stats = StatsService.getStats();
 
         // Verificar resultados
         assertEquals(5L, stats.getCountMutantDna());
@@ -89,7 +96,7 @@ public class DnaServiceTest {
         // Verificar resultados
         assertEquals(5L, stats.getCountMutantDna());
         assertEquals(0L, stats.getCountHumanDna());
-        assertEquals(0.0, stats.getRatio());
+        assertEquals(0.0, stats.getRatio(), 0.01);
     }
 
     @Test

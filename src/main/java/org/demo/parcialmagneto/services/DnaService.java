@@ -13,11 +13,14 @@ import java.util.stream.IntStream;
 public class DnaService {
 
     private final DnaRepository dnaRepository;
+    private final StatsService statsService;
     private static final int SEQUENCE_LENGTH = 4;
 
+    // Constructor con inyección de dependencias
     @Autowired
-    public DnaService(DnaRepository dnaRepository) {
+    public DnaService(DnaRepository dnaRepository, StatsService statsService) {
         this.dnaRepository = dnaRepository;
+        this.statsService = statsService;
     }
 
     public static boolean isMutant(String[] dna) {
@@ -39,7 +42,7 @@ public class DnaService {
 
     private static int checkRows(String[] dna, int n) {
         return (int) IntStream.range(0, n)
-                .parallel() // Paralelizamos para optimizar
+                .parallel()
                 .map(i -> countSequences(dna[i]))
                 .sum();
     }
@@ -57,7 +60,7 @@ public class DnaService {
                 }
             } else {
                 lastChar = row.charAt(j);
-                currentCount = 1; // Resetear el contador
+                currentCount = 1;
             }
         }
         return count;
@@ -83,14 +86,13 @@ public class DnaService {
                 }
             } else {
                 lastChar = dna[i].charAt(col);
-                currentCount = 1; // Resetear el contador
+                currentCount = 1;
             }
         }
         return count;
     }
 
     private static int checkDiagonals(String[] dna, int n) {
-        // Contamos las diagonales en ambas direcciones usando IntStream
         int countRightDiagonals = (int) IntStream.range(0, n - SEQUENCE_LENGTH + 1)
                 .parallel()
                 .map(i -> IntStream.range(0, n - SEQUENCE_LENGTH + 1)
@@ -122,29 +124,26 @@ public class DnaService {
                 if (dna[nextX].charAt(nextY) == lastChar) {
                     currentCount++;
                     if (currentCount == SEQUENCE_LENGTH) {
-                        count++; // Contamos la secuencia encontrada
+                        count++;
                     }
                 } else {
-                    break; // Rompe el bucle si la secuencia se interrumpe
+                    break;
                 }
             } else {
-                break; // Rompe el bucle si se sale de los límites
+                break;
             }
         }
-        return count; // Retornamos el número de secuencias encontradas
+        return count;
     }
 
     public boolean analyzeDna(String[] dna) {
         String dnaSequence = String.join(",", dna);
 
-        // Verificamos si el ADN ya existe en la base de datos
         Optional<Dna> existingDna = dnaRepository.findByDna(dnaSequence);
         if (existingDna.isPresent()) {
-            // Si el ADN ya fue analizado, retornamos el resultado
             return existingDna.get().isMutant();
         }
 
-        // Determinamos si el ADN es mutante y lo guardamos en la base de datos
         boolean isMutant = isMutant(dna);
         Dna dnaEntity = Dna.builder()
                 .dna(dnaSequence)
@@ -154,11 +153,9 @@ public class DnaService {
 
         return isMutant;
     }
-    public StatsResponse getStats() {
-        long countMutantDna = dnaRepository.countByIsMutant(true);
-        long countHumanDna = dnaRepository.countByIsMutant(false);
-        double ratio = countHumanDna == 0 ? 0 : (double) countMutantDna / countHumanDna;
 
-        return new StatsResponse(countMutantDna, countHumanDna, ratio);
+    // Llamada al metodo de instancia en statsService
+    public StatsResponse getStats() {
+        return statsService.getStats();
     }
 }
